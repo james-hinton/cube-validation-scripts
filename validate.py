@@ -21,6 +21,11 @@ bucket_name = os.environ.get("S3_BUCKET", "public-eo-data")
 s3_prefix = os.environ.get("S3_KEY", "common_sensing/fiji/")
 stac_prefix = os.environ.get("S3_STAC_KEY", "stac_catalogs/cs_stac")
 
+db_host = os.environ.get("DB_HOST", "localhost")
+db_database = os.environ.get("DB_DATABASE", "datacube")
+db_user = os.environ.get("DB_USER", "postgres")
+db_password = os.environ.get("DB_PASSWORD", "postgres")
+
 # Add to S3 bucket
 s3_resource = boto3.resource(
     "s3",
@@ -153,10 +158,10 @@ def check_db_count():
     """
     # Connect to DB
     connection = psycopg2.connect(
-        host="localhost",
-        database="datacube",
-        user="postgres",
-        password="postgres",
+        host=db_host,
+        database=db_database,
+        user=db_user,
+        password=db_password,
     )
 
     # create dictionary cursor
